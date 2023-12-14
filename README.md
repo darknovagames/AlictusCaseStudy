@@ -46,10 +46,11 @@ Rays can hit multiple planes, but we only need the closest one so we find it, ad
 
 # Summary
 
-Overall, I did my best to finish all the given necessities. I am well aware that I sacrificied some code readability and modularity for writing speed. And I am very well aware that
-many scripts could be a lot better.
+Overall, I did my best to finish all the given necessities. My priorities were Completion > Readability > Performance.
 
-Some of the parts that could be improved:
+I am well aware that I sacrificied some code readability and modularity for writing speed. And I am very well aware thatmany scripts could be a lot better.
+
+Some of the parts that I remember that could be improved:
 -Object pools could be used for Enemies and all projectiles.
 -Player's interactions with other objects could be written in a better way that complies with SOLID. Currently it is basically hard coded.
 
