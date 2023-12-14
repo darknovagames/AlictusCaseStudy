@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public float Health;
     public float MaxHealth = 100;
+
+    public bool IsDead = false;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Coin")
         {
             Destroy(other.gameObject);
-            GameController.Instance.IncreaseTotalCoins();
+            GameManager.Instance.IncreaseTotalCoins();
         }
 
         if (other.gameObject.tag == "EnemyProjectile")
@@ -26,16 +26,23 @@ public class Player : MonoBehaviour
             Health -= 20;
             PlayerHealthUpdated();
         }
-        
         if (other.gameObject.tag == "Enemy")
         {
             Health = 0;
             PlayerHealthUpdated();
         }
+
     }
+
 
     private void PlayerHealthUpdated()
     {
-        GameController.Instance.PlayerHealthPercentageChanged(Health / MaxHealth);
+        if (Health <= 0)
+        {
+            IsDead = true;
+            GameManager.Instance.ChangeGameState(GameState.Fail);
+        }
+
+        GameManager.Instance.PlayerHealthPercentageChanged(Health / MaxHealth);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 [RequireComponent(typeof(InputHandler))]
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _maxMoveSpeed = 8;
 
+    private Player _player;
+
     private float _currentMoveSpeed = 0;
 
     public float CurrentMoveSpeed { get => _currentMoveSpeed; }
@@ -20,10 +23,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _inputHandler = GetComponent<InputHandler>();
+        _player = GetComponent<Player>();
     }
 
     private void Update()
     {
+        if (_player.IsDead) return;
+
         Vector3 inputDirection = new Vector3(_inputHandler.Direction.x, 0, _inputHandler.Direction.y);
 
         inputDirection.Normalize();

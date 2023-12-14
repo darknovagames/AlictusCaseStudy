@@ -106,9 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e25b16f9c7a80743a989c93c104d613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonProjectile: {fileID: 0}
+  _skeletonProjectile: {fileID: 1584811574781544568, guid: 58074acb7dd59f7459769f81e987f219,
+    type: 3}
   _attackRange: 11
   _moveSpeed: 5
+  IsDead: 0
 --- !u!54 &7324087048005921282
 Rigidbody:
   m_ObjectHideFlags: 0

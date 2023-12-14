@@ -12,25 +12,44 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text _totalCoinsText;
     [SerializeField] private TMP_Text _killCountText;
 
+    [SerializeField] private GameObject _failWindow;
+
     private Camera _camera;
 
-    private void Start()
+    private float _currentPlayerHealthPercentage = 1;
+
+    private float _healthBarChangeSpeed = 0.1f;
+
+    private void Awake()
     {
-        GameController.OnPlayerHealthPercentageChanged += OnPlayerHealthChanged;
-        GameController.OnKillCountChanged += OnKillCountChanged;
-        GameController.OnTotalCoinsChanged += OnTotalCoinsChanged;
+        GameManager.OnPlayerHealthPercentageChanged += OnPlayerHealthChanged;
+        GameManager.OnKillCountChanged += OnKillCountChanged;
+        GameManager.OnTotalCoinsChanged += OnTotalCoinsChanged;
+        GameManager.OnGameStateChanged += OnGameStateChanged;
         _camera = Camera.main;
+    }
+
+
+
+    private void OnGameStateChanged(GameState state)
+    {
+        if (state == GameState.Fail)
+        {
+            _failWindow.SetActive(true);
+        }
     }
 
     private void Update()
     {
         Vector3 PlayerPosInScreenSpace = _camera.WorldToScreenPoint(UnitManager.Instance.Player.transform.position);
         _healthBarBG.transform.position = PlayerPosInScreenSpace + Vector3.up * 80;
+
+        _healthBar.fillAmount = Mathf.Lerp(_healthBar.fillAmount, _currentPlayerHealthPercentage, 0.2f);
     }
 
     private void OnPlayerHealthChanged(float health)
     {
-        _healthBar.fillAmount = health;
+        _currentPlayerHealthPercentage = health;
     }
 
     private void OnTotalCoinsChanged(int totalCoins)
@@ -42,4 +61,8 @@ public class UIManager : MonoBehaviour
         _killCountText.text = killCount.ToString();
     }
 
+    public void OnRestartClicked()
+    {
+        GameManager.Instance.Restart();
+    }
 }
