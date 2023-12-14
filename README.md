@@ -52,7 +52,7 @@ I am well aware that I sacrificied some code readability and modularity for writ
 
 Some of the parts that I remember that could be improved:
 -Object pools could be used for Enemies and all projectiles.
--Player's interactions with other objects could be written in a better way that complies with SOLID. Currently it is basically hard coded.
+-Player's interactions with other objects could be written in a better way that complies with SOLID.
 
 
 Thanks for your time. 
